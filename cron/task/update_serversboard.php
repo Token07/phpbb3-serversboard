@@ -17,10 +17,7 @@ class update_serversboard extends \phpbb\cron\task\base
 	protected $config;
 	protected $db;
 	protected $serversboard_table;
-	
-	/**
-	* Constructor.
-	*/
+
 	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\factory $db, $serversboard_table)
 	{
 		$this->config = $config;
@@ -92,7 +89,7 @@ class update_serversboard extends \phpbb\cron\task\base
 				{
 					$player['time'] = 0;
 				}
-				// SRCDS doesn't always give back valid UTF-8
+				// Servers doesn't always give back valid UTF-8
 				if (!preg_match('//u', $player['gq_name']))
 				{
 					$player['gq_name'] = utf8_encode($player['gq_name']);

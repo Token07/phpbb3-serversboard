@@ -19,7 +19,7 @@ class main_listener implements EventSubscriberInterface
 	protected $config;
 	protected $db;
 	protected $serversboard_table;
-	
+
 	static public function getSubscribedEvents()
 	{
 		return array(
@@ -49,34 +49,34 @@ class main_listener implements EventSubscriberInterface
 		);
 		$event['lang_set_ext'] = $lang_set_ext;
 	}
+
 	public function navbar_setup()
 	{
 		$this->template->assign_var('TOKEN07_SERVERSBOARD_NAVBAR_LINK_ENABLE', $this->config['serversboard_navbar_link_enable']);
 		$this->template->assign_var('TOKEN07_SERVERSBOARD_NAVBAR_TEXT', $this->user->lang('TOKEN07_SERVERSBOARD_PLAYER_COUNT', (int) $this->config['serversboard_player_count']));
 		$this->template->assign_var('TOKEN07_SERVERSBOARD_URL', $this->helper->route("token07_serversboard_controller"));
 	}
+
 	public function load_serversboard($page_title)
 	{
 		if ($this->config['serversboard_enable'])
 		{
 			$this->template->assign_var('TOKEN07_SERVERSBOARD_ENABLE', true);
-			$result = $this->db->sql_query('SELECT * FROM ' . $this->serversboard_table . ' ORDER BY server_order');
+			$result = $this->db->sql_query('SELECT server_status, server_hostname, server_ip, server_players, server_map, server_join_link, server_show_gametracker FROM ' . $this->serversboard_table . ' ORDER BY server_order');
 			while ($row = $this->db->sql_fetchrow($result))
 			{
-				/*
-				$tmp = array('STATUS' => $row['server_status'], 'HOSTNAME' => $row['server_hostname'], 'IP' => $row['server_ip'], 'PLAYERS' => $row['server_players'], 'MAP' => $row['server_map'], 'OPTIONS' => '');
-				$tmp['LINK'] = $this->helper->route("token07_serversboard_viewdetails", array('id' => $row['server_id']));
-				$this->template->assign_block_vars('serverlist', $tmp);*/
 				$this->setTemplateVars($row);
 			}
 		}
 	}
+
 	public function add_permission($event)
 	{
 		$permissions = $event['permissions'];
 		$permissions['a_serversboard'] = array('lang' => 'ACL_A_SERVERSBOARD', 'cat' => 'misc');
 		$event['permissions'] = $permissions;
 	}
+
 	private function setTemplateVars($row)
 	{
 		$tmp = array(
@@ -107,7 +107,6 @@ class main_listener implements EventSubscriberInterface
 			$row['server_players'] = '0 / 0';
 			$row['server_playerlist'] = '[]';
 		}
-		$this->template->assign_var('SERVERSBOARD_SERVER_STATUS', $row['server_status']);
 		$tmp['LINK'] = $this->helper->route("token07_serversboard_viewdetails", array('id' => $row['server_id']));
 		$this->template->assign_block_vars('serverlist', $tmp);
 	}
