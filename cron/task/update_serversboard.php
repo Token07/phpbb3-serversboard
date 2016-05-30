@@ -10,8 +10,6 @@
 
 namespace token07\serversboard\cron\task;
 
-require(dirname(__FILE__) . "/../../vendor/autoload.php");
-
 class update_serversboard extends \phpbb\cron\task\base
 {
 	protected $config;
