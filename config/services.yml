@@ -17,6 +17,7 @@ services:
             - '@config'
             - '@dbal.conn'
             - '@user'
+            - @?phpbb.collapsiblecategories.operator
             - '%token07.serversboard.tables.serversboard%'
         tags:
             - { name: event.listener }

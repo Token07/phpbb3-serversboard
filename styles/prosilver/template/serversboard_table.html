@@ -1,3 +1,5 @@
+<a class="category<!-- IF SERVERSBOARD_HIDDEN --> hidden-category<!-- ENDIF -->" 
+style="display: none; height: 0"></a>
 <div class="forabg">
 	<div class="inner">
 		<ul class="topiclist">
@@ -12,6 +14,13 @@
 					<dd class="mapname">{L_TOKEN07_SERVERSBOARD_MAP}</dd>
 					<dd class="serveroptions">{L_OPTIONS}</dd>
 				</dl>
+				<a href="{SERVERSBOARD_COLLAPSE_URL}" 
+					class="collapse-btn collapse-<!-- IF SERVERSBOARD_HIDDEN -->show<!-- ELSE -->hide<!-- ENDIF -->" 
+					data-hidden="{SERVERSBOARD_HIDDEN}" 
+					data-ajax="phpbb_collapse" 
+					data-overlay="true" 
+					title="{L_COLLAPSIBLE_CATEGORIES_TITLE}" 
+					style="display: none; line-height: 0;"></a>
 			</li>
 		</ul>
 		<ul class="topiclist forums">

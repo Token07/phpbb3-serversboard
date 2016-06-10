@@ -19,6 +19,8 @@ class main_listener implements EventSubscriberInterface
 	protected $config;
 	protected $db;
 	protected $serversboard_table;
+	protected $collapse_cat;
+	protected $serversboard_cc_name = 'serversboard';
 
 	static public function getSubscribedEvents()
 	{
@@ -30,7 +32,7 @@ class main_listener implements EventSubscriberInterface
 		);
 	}
 
-	public function __construct(\phpbb\controller\helper $helper, \phpbb\template\template $template, \phpbb\config\config $config, \phpbb\db\driver\factory $db, \phpbb\user $user, $serversboard_table)
+	public function __construct(\phpbb\controller\helper $helper, \phpbb\template\template $template, \phpbb\config\config $config, \phpbb\db\driver\factory $db, \phpbb\user $user, \phpbb\collapsiblecategories\operator\operator $collapse_cat = null, $serversboard_table)
 	{
 		$this->helper = $helper;
 		$this->template = $template;
@@ -38,6 +40,7 @@ class main_listener implements EventSubscriberInterface
 		$this->db = $db;
 		$this->user = $user;
 		$this->serversboard_table = $serversboard_table;
+		$this->collapse_cat = $collapse_cat;
 	}
 
 	public function load_language_on_setup($event)
@@ -55,6 +58,16 @@ class main_listener implements EventSubscriberInterface
 		$this->template->assign_var('TOKEN07_SERVERSBOARD_NAVBAR_LINK_ENABLE', $this->config['serversboard_navbar_link_enable']);
 		$this->template->assign_var('TOKEN07_SERVERSBOARD_NAVBAR_TEXT', $this->user->lang('TOKEN07_SERVERSBOARD_PLAYER_COUNT', (int) $this->config['serversboard_player_count']));
 		$this->template->assign_var('TOKEN07_SERVERSBOARD_URL', $this->helper->route("token07_serversboard_controller"));
+
+		if ($this->collapse_cat !== null)
+		{
+			$this->template->assign_vars(array(
+				'SERVERSBOARD_HIDDEN'		=> in_array($this->serversboard_cc_name, $this->collapse_cat->get_user_categories()),
+				'SERVERSBOARD_COLLAPSE_URL'	=> $this->helper->route('phpbb_collapsiblecategories_main_controller', array(
+					'forum_id' => $this->serversboard_cc_name,
+					'hash' => generate_link_hash("collapsible_{$this->serversboard_cc_name}")))
+				));
+		}
 	}
 
 	public function load_serversboard($page_title)
