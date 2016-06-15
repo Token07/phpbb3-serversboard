@@ -69,7 +69,7 @@ class update_serversboard extends \phpbb\cron\task\base
 			$offline = (!empty($result['gq_online'])) ? $result['gq_online'] : 0;
 			$newDetails = array(
 				'server_status'		=> $offline,
-				'server_players'	=> sprintf('%d / %d', (!empty($result['gq_numplayers']) && !$result['gq_numplayers']) ? $result['gq_numplayers'] : 0, (!empty($result['gq_maxplayers']) && !$result['gq_maxplayers']) ? $result['gq_maxplayers'] : 0),
+				'server_players'	=> sprintf('%d / %d', ((!empty($result['gq_numplayers'])) ? $result['gq_numplayers'] : 0), ((!empty($result['gq_maxplayers'])) ? $result['gq_maxplayers'] : 0)),
 				'server_map'		=> (isset($result['gq_mapname'])) ? $result['gq_mapname'] : '',
 				'server_lastupdate'	=> time(),
 				'server_join_link'	=> $result['gq_joinlink'],
