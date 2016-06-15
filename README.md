@@ -11,3 +11,4 @@ An extension for phpBB that allows you to display information about game servers
 * Copy files to ext/token07/serversboard
 * Go to ACP and install extension
 
+See https://github.com/Token07/serversboard-build-script for patches
