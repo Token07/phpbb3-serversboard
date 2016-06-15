@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "acda780dc05e429381f888658309db15",
-    "content-hash": "7933bfd11902ccd4eede88853d65428e",
+    "hash": "904029e85c230158b9e8d37c6cf483d9",
+    "content-hash": "ef00d5ca45ab833887123263700abe4b",
     "packages": [
         {
             "name": "austinb/gameq",
-            "version": "v3.0.6",
+            "version": "v3.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Austinb/GameQ.git",
-                "reference": "41a5d6862af753aec7bce006c4657d36bdf5fe1d"
+                "reference": "0a2b4f93046d8b56c087e5dbd7ffd9a63c050f90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Austinb/GameQ/zipball/41a5d6862af753aec7bce006c4657d36bdf5fe1d",
-                "reference": "41a5d6862af753aec7bce006c4657d36bdf5fe1d",
+                "url": "https://api.github.com/repos/Austinb/GameQ/zipball/0a2b4f93046d8b56c087e5dbd7ffd9a63c050f90",
+                "reference": "0a2b4f93046d8b56c087e5dbd7ffd9a63c050f90",
                 "shasum": ""
             },
             "require": {
@@ -33,7 +33,7 @@
                 "phpunit/php-invoker": "*",
                 "phpunit/phpunit": "@stable",
                 "satooshi/php-coveralls": "~1.0",
-                "squizlabs/php_codesniffer": "2.*@stable"
+                "squizlabs/php_codesniffer": "2.5.*@stable"
             },
             "type": "library",
             "autoload": {
@@ -85,7 +85,7 @@
                 "gameq",
                 "serverstatus"
             ],
-            "time": "2016-03-10 21:42:42"
+            "time": "2016-05-21 02:19:03"
         }
     ],
     "packages-dev": [],
