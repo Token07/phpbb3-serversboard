@@ -102,7 +102,7 @@ class update_serversboard extends \phpbb\cron\task\base
 			$sql = 'UPDATE ' . $this->serversboard_table . ' SET ' . $this->db->sql_build_array('UPDATE', $newDetails) . '
 				WHERE server_id = ' . (int) $server;
 			$this->db->sql_query($sql);
-			$playerCount += (!empty($result['gq_numplayers']) && !$result['gq_numplayers']) ? $result['gq_numplayers'] : 0;
+			$playerCount += (!empty($result['gq_numplayers'])) ? $result['gq_numplayers'] : 0;
 		}
 		$this->config->set('serversboard_update_last_run', time());
 		$this->config->set('serversboard_player_count', $playerCount);
