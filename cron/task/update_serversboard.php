@@ -93,7 +93,7 @@ class update_serversboard extends \phpbb\cron\task\base
 			// Don't clear hostname in case one is already set
 			if (empty($newDetails['server_hostname'))
 			{
-				unset($newDetails['server_hostname');
+				unset($newDetails['server_hostname']);
 			}
 
 			$players = array();
