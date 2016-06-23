@@ -36,7 +36,7 @@ class update_serversboard extends \phpbb\cron\task\base
 		$servers = array();
 		$playerCount = 0;
 		$result = $this->db->sql_query('SELECT server_type, server_ip, server_id, server_query_port FROM ' . $this->serversboard_table);
-		
+
 		while ($row = $this->db->sql_fetchrow($result))
 		{
 			$server = array(
@@ -54,11 +54,11 @@ class update_serversboard extends \phpbb\cron\task\base
 			}
 			if ($row['server_query_port'] != NULL)
 			{
-				$server['options'] = array('query_port' => $row['server_query_port']);
+				$server['options'] = array('query_port' => (int) $row['server_query_port']);
 			}
 			$servers[] = $server;
 		}
-		
+
 		$this->db->sql_freeresult($result);
 		$GameQ->addServers($servers);
 		$GameQ->setOption('timeout', 5);
@@ -66,17 +66,34 @@ class update_serversboard extends \phpbb\cron\task\base
 
 		foreach ($results as $server => $result)
 		{
-			$offline = (!empty($result['gq_online'])) ? $result['gq_online'] : 0;
+			$max_players = 	(empty($result['gq_maxplayers']) && !empty($result['maxplayers'])) ? $result['maxplayers'] : $result['gq_maxplayers'];
+			$server_properties = array();
+			$server_props_needed = array('online', 'maxplayers', 'numplayers', 'hostname', 'mapname');
+			foreach ($server_props_needed AS $prop)
+			{
+				if (!isset($result[$prop]))
+				{
+					$server_properties[$prop] = isset($result['gq_' . $prop]) ? $result['gq_' . $prop] : '';
+				}
+				else
+				{
+					$server_properties[$prop] = $result[$prop];
+				}
+			}
+
 			$newDetails = array(
-				'server_status'		=> $offline,
-				'server_players'	=> sprintf('%d / %d', ((!empty($result['gq_numplayers'])) ? $result['gq_numplayers'] : 0), ((!empty($result['gq_maxplayers'])) ? $result['gq_maxplayers'] : 0)),
-				'server_map'		=> (isset($result['gq_mapname'])) ? $result['gq_mapname'] : '',
+				'server_hostname'	=> $server_properties['hostname'],
+				'server_status'		=> (int) $server_properties['online'],
+				'server_players'	=> sprintf('%d / %d', (int) $server_properties['numplayers'], (int) $server_properties['maxplayers']),
+				'server_map'		=> $server_properties['mapname'],
 				'server_lastupdate'	=> time(),
 				'server_join_link'	=> $result['gq_joinlink'],
 			);
-			if (!empty($result['gq_hostname']))
+
+			// Don't clear hostname in case one is already set
+			if (empty($newDetails['server_hostname'))
 			{
-				$newDetails['server_hostname'] = $result['gq_hostname'];
+				unset($newDetails['server_hostname'));
 			}
 
 			$players = array();
