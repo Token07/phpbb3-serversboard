@@ -1,0 +1,59 @@
+<!-- INCLUDE overall_header.html -->
+<h1>{L_TOKEN07_SERVERSBOARD_ACP_TEST}</h1>
+
+<!-- IF not TEST_COMPLETE -->
+<form id="acp_board" method="post" action="{U_ACTION}">
+	<fieldset>
+		<dl>
+			<dt><label for="server_ip">{L_TOKEN07_SERVERSBOARD_ACP_SERVERIP}</label></dt>
+			<dd>
+				<input type="text" name="server_ip" value="{SERVER_IP}" />
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="server_port">{L_TOKEN07_SERVERSBOARD_ACP_SERVERPORT}</label></dt>
+			<dd>
+				<input type="text" name="server_port" value="{SERVER_PORT}" />
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="server_protocol">{L_TOKEN07_SERVERSBOARD_ACP_SERVERTYPE}</label></dt>
+			<dd>
+				 <select name="server_protocol">
+					<!-- BEGIN serversboard_base_protocols -->
+					<optgroup label="{serversboard_base_protocols.CATEGORY}">
+						<!-- BEGIN serversboard_base_protocols.protocols -->
+						<option value="{serversboard_base_protocols.protocols.VALUE}">{serversboard_base_protocols.protocols.NAME}</option>
+						<!-- END serversboard_base_protocols.protocols -->
+					</optgroup>
+					<!-- END serversboard_base_protocols -->
+				</select>
+			</dd>
+		</dl>
+		<dl>
+			<dt>
+				<label for="server_qport">{L_TOKEN07_SERVERSBOARD_ACP_QUERY_PORT}</label>
+				<br />
+				<span>{L_TOKEN07_SERVERSBOARD_ACP_QUERY_PORT_EXPLAIN}</span>
+			</dt>
+			<dd>
+				<input type="number" name="token07_serversboard_queryport" value="{SERVER_QUERY_PORT}" />
+			</dd>
+		</dl>
+		<p class="submit-buttons">
+			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+			<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+		</p>
+	</fieldset>
+</form>
+<!-- ELSE -->
+<table>
+	<tr>
+		<td>
+			<span style="white-space: pre">{SERVER_DATA}</pre>
+		</td>
+	</tr>
+</table>
+<!-- ENDIF -->
+</div>
+<!-- INCLUDE overall_footer.html -->

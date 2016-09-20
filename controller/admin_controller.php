@@ -226,6 +226,44 @@ class admin_controller
 			'TOKEN07_SERVERSBOARD_NAVBAR_LINK_ENABLE'	=> $this->config['serversboard_navbar_link_enable'],
 		));
 	}
+	public function protocol_test()
+	{
+		if ($this->request->is_set_post('submit'))
+		{
+			$server_ip = $this->request->variable('server_ip', '');
+			$server_port = $this->request->variable('server_port', 0);
+			$server_protocol = $this->request->variable('server_protocol', '');
+			if (empty($server_ip) || empty($server_port) || empty($server_protocol))
+			{
+				trigger_error('FORM_INVALID');
+			}
+			$socket = @socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
+			if (!$socket)
+			{
+				trigger_error('TOKEN07_SERVERSBOARD_ACP_SOCK_ERR_CREATE');
+			}
+			if (!@socket_connect($socket, $server_ip, $server_port))
+			{
+				trigger_error('TOKEN07_SERVERSBOARD_ACP_SOCK_ERR_OPEN');
+			}
+			if (!@socket_write($socket,"\x00"))
+			{
+				trigger_error('TOKEN07_SERVERSBOARD_ACP_SOCK_ERR_WRITE');
+			}
+			$gameQ = new \GameQ\GameQ();
+			$gameQ->addServer([
+				'type'	=> $server_protocol,
+				'host'	=> "$server_ip:$server_port"
+			]);
+			$results = $gameQ->process();
+			$this->template->assign_var('TEST_COMPLETE', true);
+			$this->template->assign_var('SERVER_DATA', print_r($results, true));
+		}
+		else
+		{
+			$this->generate_protocol_list();
+		}
+	}
 	private function generate_protocol_list()
 	{
 		$protocols = $this->get_supported_protocols();

@@ -32,6 +32,11 @@ class serversboard_info
 					'auth'	=> 'ext_token07/serversboard && acl_a_serversboard',
 					'cat'	=> 'TOKEN07_SERVERSBOARD_ACP_SERVERSBOARD',
 				),
+				'test'	=>	array(
+					'title' => 'TOKEN07_SERVERSBOARD_ACP_TEST',
+					'auth'	=> 'ext_token07/serversboard && acl_a_serversboard',
+					'cat'	=> 'TOKEN07_SERVERSBOARD_ACP_SERVERSBOARD',
+				),
 			),
 		);
 	}
