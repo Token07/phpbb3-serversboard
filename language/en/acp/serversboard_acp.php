@@ -42,5 +42,9 @@ $lang = array_merge($lang, array(
 	'TOKEN07_SERVERSBOARD_ACP_OTHER'				=> 'Other',
 	'TOKEN07_SERVERSBOARD_ACP_SHOW_GAMETRACKER'		=> 'Show GameTracker link for this server',
 	'TOKEN07_SERVERSBOARD_ACP_SHOW_TIME_ONLINE'		=> 'Show the "Time Online" column in player list for this server:',
+	'TOKEN07_SERVERSBOARD_ACP_ICON_PATH'			=> 'Servers Board icon storage path:',
+	'TOKEN07_SERVERSBOARD_ACP_SOCK_ERR_CREATE'		=> 'Could not create socket. (Error message: %s)',
+	'TOKEN07_SERVERSBOARD_ACP_SOCK_ERR_OPEN'		=> 'Could not open socket. This probably indicates a firewall issue. (Error Message: %s)',
+	'TOKEN07_SERVERSBOARD_ACP_SOCK_ERR_WRITE'		=> 'Could not write to socket. This probably indicates a firewall issue. (Error Message: %s)',
 	)
 );

@@ -67,6 +67,10 @@ class serversboard_module
 				$this->page_title = $user->lang('TOKEN07_SERVERSBOARD_ACP_ADD');
 				$admin_controller->add_server();
 			break;
+			case 'test':
+				$this->tpl_name = 'serversboard_test';
+				$this->page_title = $user->lang('TOKEN07_SERVERSBOARD_ACP_TEST');
+				$admin_controller->protocol_test();
 		}
 	}
 }
