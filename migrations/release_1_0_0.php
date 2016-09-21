@@ -40,7 +40,7 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 					'TOKEN07_SERVERSBOARD_ACP_SERVERSBOARD',
 					array(
 						'module_basename'	=> '\token07\serversboard\acp\serversboard_module',
-						'modes'	=> array('servers', 'settings', 'add'),
+						'modes'	=> array('servers', 'settings', 'add', 'test'),
 					),
 				)
 			),
