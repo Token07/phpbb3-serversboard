@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "904029e85c230158b9e8d37c6cf483d9",
-    "content-hash": "ef00d5ca45ab833887123263700abe4b",
+    "hash": "c54b38263b239c97ea3266febafb7336",
+    "content-hash": "d377a4a13ac3a5a6e66b3b7998d83cab",
     "packages": [
         {
             "name": "austinb/gameq",
