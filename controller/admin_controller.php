@@ -233,6 +233,7 @@ class admin_controller
 			$server_ip = $this->request->variable('server_ip', '');
 			$server_port = $this->request->variable('server_port', 0);
 			$server_protocol = $this->request->variable('server_protocol', '');
+			$server_query_port = $this->request->variable('server_query_port', 0);
 			if (empty($server_ip) || empty($server_port) || empty($server_protocol))
 			{
 				trigger_error('FORM_INVALID');
@@ -240,24 +241,52 @@ class admin_controller
 			$socket = @socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
 			if (!$socket)
 			{
-				trigger_error('TOKEN07_SERVERSBOARD_ACP_SOCK_ERR_CREATE');
+				trigger_error($this->user->lang('TOKEN07_SERVERSBOARD_ACP_SOCK_ERR_OPEN', socket_strerror(socket_last_error($socket))), E_USER_WARNING);
 			}
 			if (!@socket_connect($socket, $server_ip, $server_port))
 			{
-				trigger_error('TOKEN07_SERVERSBOARD_ACP_SOCK_ERR_OPEN');
+				trigger_error($this->user->lang('TOKEN07_SERVERSBOARD_ACP_SOCK_ERR_OPEN', socket_strerror(socket_last_error($socket))), E_USER_WARNING);
 			}
 			if (!@socket_write($socket,"\x00"))
 			{
-				trigger_error('TOKEN07_SERVERSBOARD_ACP_SOCK_ERR_WRITE');
+				trigger_error($this->user->lang('TOKEN07_SERVERSBOARD_ACP_SOCK_ERR_OPEN', socket_strerror(socket_last_error($socket))), E_USER_WARNING);
 			}
 			$gameQ = new \GameQ\GameQ();
-			$gameQ->addServer([
+			$server_config = [
 				'type'	=> $server_protocol,
-				'host'	=> "$server_ip:$server_port"
-			]);
+				'host'	=> "$server_ip:$server_port",
+			];
+			if ($server_query_port != 0)
+			{
+				$server_config['options'] = ['query_port' => $server_query_port];
+			}
+			$gameQ->addServer($server_config);
 			$results = $gameQ->process();
+			$this->template->assign_vars(array(
+				'SERVER_IP'			=> $server_ip,
+				'SERVER_PORT'		=> $server_port,
+				'SERVER_PROTOCOL'	=> $server_protocol,
+				'SERVER_QUERY_PORT'	=> ($server_query_port != 0) ? $server_query_port : '',
+			));
+			foreach ($results["$server_ip:$server_port"] as $k => $v)
+			{
+				if (is_array($v))
+				{
+					$usePre = true;
+					$v = var_export($v, true);
+				}
+				else
+				{
+					$usePre = false;
+				}
+				$this->template->assign_var('GAMEQ_STATUS', $results["$server_ip:$server_port"]['gq_online']);
+				$this->template->assign_block_vars('serverdata', array(
+					'KEY' 		=> $k,
+					'VALUE'		=> htmlentities($v),
+					'USE_PRE'	=> $usePre,
+				));
+			}
 			$this->template->assign_var('TEST_COMPLETE', true);
-			$this->template->assign_var('SERVER_DATA', print_r($results, true));
 		}
 		else
 		{
