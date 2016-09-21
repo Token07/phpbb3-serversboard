@@ -46,5 +46,7 @@ $lang = array_merge($lang, array(
 	'TOKEN07_SERVERSBOARD_ACP_SOCK_ERR_CREATE'		=> 'Could not create socket. (Error message: %s)',
 	'TOKEN07_SERVERSBOARD_ACP_SOCK_ERR_OPEN'		=> 'Could not open socket. This probably indicates a firewall issue. (Error Message: %s)',
 	'TOKEN07_SERVERSBOARD_ACP_SOCK_ERR_WRITE'		=> 'Could not write to socket. This probably indicates a firewall issue. (Error Message: %s)',
+	'TOKEN07_SERVERSBOARD_ACP_CONNECT_TEST_FAIL'	=> 'Connection to server unsuccessful. Please check IP, port, protocol, and query port settings.',
+	'TOKEN07_SERVERSBOARD_ACP_CONNECT_TEST_PASS'	=> 'Connection to server successful.',
 	)
 );
