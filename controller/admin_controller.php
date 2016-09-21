@@ -97,7 +97,7 @@ class admin_controller
 			$this->db->sql_query($sql);
 
 			$task = $phpbb_container->get('token07.serversboard.cron.task.update_serversboard');
-			$task->run();
+			$task->run($this->db->sql_nextid());
 			
 			$this->phpbb_log->add('admin', $this->user->data['user_id'], $this->user->data['session_ip'], 'TOKEN07_SERVERSBOARD_ACP_LOG_ADDED', time(), array($server_ip));
 			trigger_error($this->user->lang('TOKEN07_SERVERSBOARD_ACP_ADDED'). adm_back_link($this->u_action));

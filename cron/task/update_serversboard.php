@@ -30,12 +30,20 @@ class update_serversboard extends \phpbb\cron\task\base
 	{
 		return $this->config['serversboard_update_last_run'] < time() - $this->config['serversboard_update_time'];
 	}
-	public function run()
+	public function run($id = NULL)
 	{
 		$GameQ = new \GameQ\GameQ();
 		$servers = array();
 		$playerCount = 0;
-		$result = $this->db->sql_query('SELECT server_type, server_ip, server_id, server_query_port FROM ' . $this->serversboard_table);
+
+		if (!empty($id))
+		{
+			$result = $this->db->sql_query('SELECT server_type, server_ip, server_id, server_query_port FROM ' . $this->serversboard_table . ' WHERE server_id = ' . (int) $id);
+		}
+		else
+		{
+			$result = $this->db->sql_query('SELECT server_type, server_ip, server_id, server_query_port FROM ' . $this->serversboard_table);
+		}
 
 		while ($row = $this->db->sql_fetchrow($result))
 		{
