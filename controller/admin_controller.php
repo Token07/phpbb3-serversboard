@@ -153,8 +153,8 @@ class admin_controller
 			$query_port = $this->request->variable('token07_serversboard_queryport', 0);
 			$server_ip = $ip . ":" . $port;
 			$server_id = $this->request->variable('server_id', -1);
-			$server_show_gt = (bool) $this->request->variable('token07_serversboard_gametracker', '');
-			$server_show_times = (bool) $this->request->variable('token07_serversboard_timeonline', '');
+			$server_show_gt = $this->request->variable('token07_serversboard_gametracker', true);
+			$server_show_times = $this->request->variable('token07_serversboard_timeonline', false);
 			if (empty($query_port) || $query_port == 0)
 			{
 				$query_port = NULL;
