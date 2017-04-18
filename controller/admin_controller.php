@@ -403,7 +403,6 @@ class admin_controller
 				WHERE server_order' . (($move_up) ? ' >= ' : ' <= ') . ($current_value - $delta) . '
 					AND server_order' . (($move_up) ? ' < ' : ' > ') . $current_value;
 			$this->db->sql_query($sql);
-			//$this->cache->destroy('sql', 'phpbb_serversboard');
 
 			// And now finally, when we moved some other items and built a gap,
 			// we can move the desired item to it.
@@ -413,7 +412,6 @@ class admin_controller
 			$this->db->sql_query($sql);
 
 			$this->db->sql_transaction('commit');
-			//$this->cache->destroy('sql', TEAMPAGE_TABLE);
 			return true;
 		}
 	}
