@@ -94,9 +94,9 @@ class admin_controller
 			$sql = 'INSERT INTO ' . $this->serversboard_table . ' ' . $this->db->sql_build_array('INSERT', $columns);
 			$this->db->sql_query($sql);
 
+			$this->phpbb_log->add('admin', $this->user->data['user_id'], $this->user->data['session_ip'], 'TOKEN07_SERVERSBOARD_ACP_LOG_ADDED', time(), array($server_ip));
 			$this->cron_task->run($this->db->sql_nextid());
 			
-			$this->phpbb_log->add('admin', $this->user->data['user_id'], $this->user->data['session_ip'], 'TOKEN07_SERVERSBOARD_ACP_LOG_ADDED', time(), array($server_ip));
 			trigger_error($this->user->lang('TOKEN07_SERVERSBOARD_ACP_ADDED'). adm_back_link($this->u_action));
 		}
 		$this->generate_protocol_list();
