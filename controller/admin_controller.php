@@ -358,7 +358,7 @@ class admin_controller
 
 		$move_up = ($delta > 0) ? true : false;
 		// Get the current position.
-		$sql = 'SELECT server_order FROM ' . $this->serversboard_table . ' WHERE server_id = ' . $id;
+		$sql = 'SELECT server_order FROM ' . $this->serversboard_table . ' WHERE server_id = ' . (int) $id;
 		$result = $this->db->sql_query($sql);
 		if (!$data = $this->db->sql_fetchrow($result))
 		{
