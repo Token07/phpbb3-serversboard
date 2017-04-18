@@ -32,7 +32,7 @@ class main_listener implements EventSubscriberInterface
 		);
 	}
 
-	public function __construct(\phpbb\controller\helper $helper, \phpbb\template\template $template, \phpbb\config\config $config, \phpbb\db\driver\factory $db, \phpbb\user $user, \phpbb\collapsiblecategories\operator\operator $collapse_cat = null, $serversboard_table)
+	public function __construct(\phpbb\controller\helper $helper, \phpbb\template\template $template, \phpbb\config\config $config, \phpbb\db\driver\factory $db, \phpbb\user $user, $serversboard_table, \phpbb\collapsiblecategories\operator\operator $collapse_cat = null)
 	{
 		$this->helper = $helper;
 		$this->template = $template;

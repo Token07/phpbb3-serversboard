@@ -17,8 +17,8 @@ services:
             - '@config'
             - '@dbal.conn'
             - '@user'
-            - @?phpbb.collapsiblecategories.operator
             - '%token07.serversboard.tables.serversboard%'
+            - @?phpbb.collapsiblecategories.operator
         tags:
             - { name: event.listener }
     token07.serversboard.cron.task.update_serversboard:
