@@ -18,10 +18,11 @@ class admin_controller
 	protected $user;
 	protected $db;
 	protected $phpbb_log;
+	protected $cron_task;
 	protected $serversboard_table;
 	protected $u_action;
 
-	public function __construct(\phpbb\config\config $config, \phpbb\request\request $request, \phpbb\template\template $template, \phpbb\user $user, \phpbb\db\driver\factory $db, \phpbb\log\log $phpbb_log, $serversboard_table)
+	public function __construct(\phpbb\config\config $config, \phpbb\request\request $request, \phpbb\template\template $template, \phpbb\user $user, \phpbb\db\driver\factory $db, \phpbb\log\log $phpbb_log, \token07\serversboard\cron\task\update_serversboard $cron_task, $serversboard_table)
 	{
 		$this->config = $config;
 		$this->request = $request;
@@ -30,6 +31,7 @@ class admin_controller
 		$this->db = $db;
 		$this->phpbb_log = $phpbb_log;
 		$this->serversboard_table = $serversboard_table;
+		$this->cron_task = $cron_task;
 	}
 	public function set_action($u_action)
 	{
@@ -41,7 +43,6 @@ class admin_controller
 	}
 	public function add_server()
 	{
-		global $phpbb_container;
 
 		add_form_key('token07/serversboard');
 		if ($this->request->is_set_post('submit'))
@@ -93,8 +94,7 @@ class admin_controller
 			$sql = 'INSERT INTO ' . $this->serversboard_table . ' ' . $this->db->sql_build_array('INSERT', $columns);
 			$this->db->sql_query($sql);
 
-			$task = $phpbb_container->get('token07.serversboard.cron.task.update_serversboard');
-			$task->run($this->db->sql_nextid());
+			$this->cron_task->run($this->db->sql_nextid());
 			
 			$this->phpbb_log->add('admin', $this->user->data['user_id'], $this->user->data['session_ip'], 'TOKEN07_SERVERSBOARD_ACP_LOG_ADDED', time(), array($server_ip));
 			trigger_error($this->user->lang('TOKEN07_SERVERSBOARD_ACP_ADDED'). adm_back_link($this->u_action));

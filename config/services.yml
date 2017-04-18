@@ -8,6 +8,7 @@ services:
             - '@template'
             - '@user'
             - '@dbal.conn'
+            - '@token07.serversboard.cron.task.update_serversboard'
             - '%token07.serversboard.tables.serversboard%'
     token07.serversboard.listener:
         class: token07\serversboard\event\main_listener
