@@ -80,9 +80,8 @@ class admin_controller
 			}
 			$this->db->sql_freeresult($result);
 
-			// Sanitize for SQL
-			$server_ip = $this->db->sql_escape($server_ip . ':' . $server_port);
-			$server_name = $this->db->sql_escape($server_name);
+			$server_ip = $server_ip . ':' . $server_port;
+			$server_name = $server_name;
 			$columns = array(
 				'server_ip'			=> $server_ip,
 				'server_order'		=> $max,
