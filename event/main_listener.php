@@ -55,9 +55,11 @@ class main_listener implements EventSubscriberInterface
 
 	public function navbar_setup()
 	{
-		$this->template->assign_var('TOKEN07_SERVERSBOARD_NAVBAR_LINK_ENABLE', $this->config['serversboard_navbar_link_enable']);
-		$this->template->assign_var('TOKEN07_SERVERSBOARD_NAVBAR_TEXT', $this->user->lang('TOKEN07_SERVERSBOARD_PLAYER_COUNT', (int) $this->config['serversboard_player_count']));
-		$this->template->assign_var('TOKEN07_SERVERSBOARD_URL', $this->helper->route("token07_serversboard_controller"));
+		$this->template->assign_vars(array(
+			'TOKEN07_SERVERSBOARD_NAVBAR_LINK_ENABLE'	=> $this->config['serversboard_navbar_link_enable'],
+			'TOKEN07_SERVERSBOARD_NAVBAR_TEXT' 			=> $this->user->lang('TOKEN07_SERVERSBOARD_PLAYER_COUNT', (int) $this->config['serversboard_player_count']),
+			'TOKEN07_SERVERSBOARD_URL'					=> $this->helper->route("token07_serversboard_controller")
+		));
 
 		if ($this->collapse_cat !== null)
 		{
