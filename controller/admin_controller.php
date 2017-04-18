@@ -91,7 +91,7 @@ class admin_controller
 				'server_playerlist'	=> '[]',
 				'server_lastupdate'	=> 0,
 				'server_query_port'	=> (empty($server_queryport)) ? NULL : $server_queryport,
-				'server_type'		=> $this->db->sql_escape($server_protocol),
+				'server_type'		=> $server_protocol,
 			);
 			$sql = 'INSERT INTO ' . $this->serversboard_table . ' ' . $this->db->sql_build_array('INSERT', $columns);
 			$this->db->sql_query($sql);
