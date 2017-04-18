@@ -30,8 +30,6 @@ class admin_controller
 		$this->db = $db;
 		$this->phpbb_log = $phpbb_log;
 		$this->serversboard_table = $serversboard_table;
-		
-		$this->user->add_lang_ext('token07/serversboard', 'acp/serversboard_acp');
 	}
 	public function set_action($u_action)
 	{

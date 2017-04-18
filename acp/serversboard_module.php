@@ -16,11 +16,12 @@ class serversboard_module
 	function main($id, $mode)
 	{
 		global $phpbb_container;
-		
+
 		$admin_controller = $phpbb_container->get('token07.serversboard.admin_controller');
 		$user = $phpbb_container->get('user');
 		$request = $phpbb_container->get('request');
 		$admin_controller->set_action($this->u_action);
+		$user->add_lang_ext('token07/serversboard', 'acp/serversboard_acp');
 
 		switch ($mode)
 		{
