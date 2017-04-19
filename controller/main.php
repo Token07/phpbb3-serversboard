@@ -94,16 +94,16 @@ class main
 			$json_response = new \phpbb\json_response;
 			if ($row = $this->db->sql_fetchrow($result))
 			{
-				$playerList = $row['server_playerlist'];
-				$html = "<ul style=\"list-style: none;\">";
-				foreach (json_decode($playerList) AS $player)
-				{
-					$html .= "<li>" . htmlentities($player->Name) . "</li>";
-				}
-				$html .= "</ul>";
+				$json_response->send(array(
+					'TITLE'			=> $this->user->lang('TOKEN07_SERVERSBOARD_PLAYERLIST', htmlentities($row['server_hostname'])),
+					'PLAYER_LIST'	=> json_decode($row['server_playerlist']))
+				);
+				return;
 			}
-			$json_response->send(array('MESSAGE_TITLE' => sprintf($this->user->lang('TOKEN07_SERVERSBOARD_PLAYERLIST', htmlentities($row['server_hostname']))), 'MESSAGE_TEXT' => $html));
-			return;
+			else
+			{
+				throw new \phpbb\exception\http_exception(400);
+			}
 		}
 		$this->setBreadcrumbs();
 		$this->template->assign_var('TOKEN07_SERVERSBOARD_ENABLE', true);
