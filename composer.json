@@ -2,7 +2,7 @@
 	"name": "token07/serversboard",
 	"type": "phpbb-extension",
 	"description": "Displays status of various game servers on a phpBB3.1 board",
-	"version": "1.0.1",
+	"version": "1.0.1-p1",
 	"license": "GPL-2.0",
 	"authors": [
 		{
