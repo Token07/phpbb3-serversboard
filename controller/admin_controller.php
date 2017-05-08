@@ -1,12 +1,11 @@
 <?php
 
-/**
-*
-* @package phpBB Extension - Servers Board
-* @copyright (c) 2016 Token07
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
-*
-*/
+/*
+ * @package phpBB Extension - Servers Board
+ * @copyright (c) 2016 Token07
+ * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+ */
+
 
 namespace token07\serversboard\controller;
 
@@ -67,7 +66,7 @@ class admin_controller
 				trigger_error($this->user->lang('TOKEN07_SERVERSBOARD_ACP_INVALIDPORT') . adm_back_link($this->u_action . "&amp;server_ip=$server_ip&amp;server_port=$server_port"), E_USER_WARNING);
 			}
 			
-			// Find the highest id number 
+			// Find the highest id number
 			$result = $this->db->sql_query('SELECT MAX(server_order) AS max FROM ' . $this->serversboard_table);
 			if (!$row = $this->db->sql_fetchrow($result))
 			{
@@ -249,13 +248,13 @@ class admin_controller
 				trigger_error($this->user->lang('TOKEN07_SERVERSBOARD_ACP_SOCK_ERR_OPEN', socket_strerror(socket_last_error($socket))), E_USER_WARNING);
 			}
 			$gameQ = new \GameQ\GameQ();
-			$server_config = [
+			$server_config = array(
 				'type'	=> $server_protocol,
 				'host'	=> "$server_ip:$server_port",
-			];
+			);
 			if ($server_query_port != 0)
 			{
-				$server_config['options'] = ['query_port' => $server_query_port];
+				$server_config['options'] = array('query_port' => $server_query_port);
 			}
 			$gameQ->addServer($server_config);
 			$results = $gameQ->process();
@@ -422,7 +421,7 @@ class admin_controller
 		// Grab the dir with all the classes available
 		$dir = dir($protocols_path);
 
-		$protocols = [];
+		$protocols = array();
 
 		// Now lets loop the directories
 		while (false !== ($entry = $dir->read()))
@@ -440,13 +439,13 @@ class admin_controller
 				continue;
 			}
 			$class = $reflection->newInstance();
-			$protocols[ $class->name() ] = [
+			$protocols[ $class->name() ] = array(
 				'class' => '\\GameQ\\Protocols\\' . pathinfo($entry, PATHINFO_FILENAME),
 				'name'  => $class->nameLong(),
 				'short'	=> $class->name(), // Sorting causes key name to get lost
 				'parent' => '\\' . get_parent_class($class),
 				'protocol'	=> $class->getProtocol(),
-			];
+			);
 			unset($class);
 		}
 		// Sort each server type by the protocol
