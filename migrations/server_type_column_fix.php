@@ -6,7 +6,6 @@
  * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
  */
 
-
 namespace token07\serversboard\migrations;
 
 class server_type_column_fix extends \phpbb\db\migration\migration

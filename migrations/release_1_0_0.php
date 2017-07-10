@@ -6,7 +6,6 @@
  * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
  */
 
-
 namespace token07\serversboard\migrations;
 
 class release_1_0_0 extends \phpbb\db\migration\migration
